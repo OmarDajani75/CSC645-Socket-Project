@@ -1,8 +1,8 @@
 import java.io.*; 
-import java.net.*; 
+import java.net.*;
+
 class TextServer {
-   public static void main(String argv[]) throws Exception 
-   {
+   public static void main(String argv[]) throws Exception {
       String clientSentence;
       String capitalizedSentence;
       ServerSocket welcomeSocket = new ServerSocket(8000); 
