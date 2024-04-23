@@ -3,6 +3,7 @@ import java.net.*;
 
 class TextClient {
 	public void main (String argv[]) throws Exception {
-		
+		String sentence;
+		String modifiedSentence;
 	}
 }
