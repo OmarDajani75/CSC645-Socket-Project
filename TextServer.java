@@ -3,15 +3,41 @@ import java.net.*;
 
 class TextServer {
 	public void main (String argv[]) throws Exception {
-		String clientSentence;
-		String capitalizedSentence;
-		int status = 5;
-		switch (status) {
-			case 1: //connect to server
-			case 2: //get user list
-			case 3: //send a message
-			case 4: //get my messages
-			case 5: //exit
-		}
-	}
+           String clientSentence;
+           String capitalizedSentence;
+           ServerSocket welcomeSocket = new ServerSocket(8000); 
+           System.out.println("SERVER is running ... ");
+
+           while(true) {
+             Socket connectionSocket = welcomeSocket.accept();
+             BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream())); 
+             DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+             String option;
+         
+           while (true) {
+             System.out.println("waiting...");
+             option = inFromClient.readLine();
+             switch (option) {
+               case "1":
+                  clientSentence = inFromClient.readLine(); 
+                  System.out.println("FROM CLIENT: " + clientSentence);
+                  capitalizedSentence = clientSentence.toUpperCase() + '\n'; 
+                  outToClient.writeBytes(capitalizedSentence);     
+                  break;
+               case "2":
+                  clientSentence = inFromClient.readLine(); 
+                  System.out.println("FROM CLIENT: " + clientSentence);
+                  capitalizedSentence = clientSentence.toLowerCase() + '\n'; 
+                  outToClient.writeBytes(capitalizedSentence);     
+                  break;
+               case "3":
+                  connectionSocket.close();
+                  break;
+            }
+            if (option.equals("3")) {
+               break;
+            }
+         }
+      }
+   }
 }
