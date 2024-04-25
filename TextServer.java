@@ -19,11 +19,14 @@ class TextServer {
              option = inFromClient.readLine();
              switch (option) {
                case "1":
-                  clientSentence = inFromClient.readLine(); 
-                  System.out.println("FROM CLIENT: " + clientSentence);
-                  capitalizedSentence = clientSentence.toUpperCase() + '\n'; 
-                  outToClient.writeBytes(capitalizedSentence);     
-                  break;
+               //Handling client login
+               String username = inFromClient.readLine();
+               String password = inFromClient.readLine();
+               if(isValidUser(username, password)) {
+                  outToClient.writeBytes("Access Granted" + '\n');
+               } else {
+                  outToClient.writeBytes("Access Denied - Incorrect Username/Password" + '\n');
+               }
                case "2":
                   clientSentence = inFromClient.readLine(); 
                   System.out.println("FROM CLIENT: " + clientSentence);
@@ -40,4 +43,8 @@ class TextServer {
          }
       }
    }
+   private static boolean isValidUser(String username, String password) {
+        // Dummy implementation, replace with actual user authentication logic
+        return (username.equals("Alice") && password.equals("1234")) || (username.equals("Bob") && password.equals("5678"));
+    }
 }
