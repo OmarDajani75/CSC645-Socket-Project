@@ -5,7 +5,7 @@ class TextServer {
 	public void main (String argv[]) throws Exception {
       String clientSentence;
       String capitalizedSentence;
-      ServerSocket welcomeSocket = new ServerSocket(8000); 
+      ServerSocket welcomeSocket = new ServerSocket(6789); 
       System.out.println("SERVER is running ... ");
 
       while(true) {

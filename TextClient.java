@@ -6,7 +6,7 @@ class TextClient {
 	   String sentence;
      String modifiedSentence;
      BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-     Socket clientSocket = new Socket("127.0.0.1", 8000);
+     Socket clientSocket = new Socket("127.0.0.1", 6789);
      DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
      BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
@@ -17,10 +17,9 @@ class TextClient {
 	    System.out.println("3. Get my messages");
 	    System.out.println("4. Exit");
       System.out.println("Enter a number:");
+      String input = inFromUser.readLine();
 
-      String option = inFromUser.readLine();
-      outToServer.writeBytes(option + "\n");
-      switch (option) { 
+      switch (input) { 
         case "0": 
 		      System.out.println("Please Enter Your Username: " + '\n');
 		      System.out.println("Please Enter Your Password: " + '\n');
@@ -54,7 +53,7 @@ class TextClient {
           clientSocket.close();
           break;
       }
-        if (option.equals("4")) {
+        if (input.equals("4")) {
           break;
         }
     }
