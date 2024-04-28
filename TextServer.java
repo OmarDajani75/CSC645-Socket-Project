@@ -18,7 +18,7 @@ class TextServer {
             System.out.println("waiting...");
             option = inFromClient.readLine();
             switch (option) {
-            case "1":
+            case "0":
               //Handling client login
               String username = inFromClient.readLine();
               String password = inFromClient.readLine();
@@ -27,14 +27,15 @@ class TextServer {
                } else {
                  outToClient.writeBytes("Access Denied - Incorrect Username/Password" + '\n');
                }
-            case "2":
-              clientSentence = inFromClient.readLine(); 
-              System.out.println("FROM CLIENT: " + clientSentence);
-              capitalizedSentence = clientSentence.toLowerCase() + '\n'; 
-              outToClient.writeBytes(capitalizedSentence);     
+               break;
+            case "1":
+              outToClient.writeBytes("User list: Alice, Bob\n");     
               break;
-            case "3":
-              connectionSocket.close();
+            case "2":
+              String recipient = inFromClient.readLine();
+              String message = inFromClient.readLine();
+
+              outToClient.writeBytes("Message sent successfully\n");
               break;
             }
             if (option.equals("3")) {
