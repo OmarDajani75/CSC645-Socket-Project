@@ -34,7 +34,7 @@ class TextServer {
             case "2":
               String recipient = inFromClient.readLine();
               String message = inFromClient.readLine();
-
+              //Add hashmap here..? Above too?
               outToClient.writeBytes("Message sent successfully\n");
               break;
             }

@@ -54,7 +54,7 @@ class TextClient {
 
           String confirmation = inFromServer.readLine();
           System.out.println("Server response: " + confirmation);
-    break;
+          break;
 		    case "3":
 		      sentence = inFromUser.readLine(); 
 		      outToServer.writeBytes(sentence + '\n'); 
