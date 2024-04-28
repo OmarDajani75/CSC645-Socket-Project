@@ -1,8 +1,10 @@
 import java.io.*; 
 import java.net.*;
+import java.util.*;
 
-class TextServer {
-	public void main (String argv[]) throws Exception {
+public class TextServer {
+   private static Map<String, List<String>> messageStore = new HashMap<>();
+	public static void main (String argv[]) throws Exception {
       String clientSentence;
       String capitalizedSentence;
       ServerSocket welcomeSocket = new ServerSocket(6789); 
@@ -34,9 +36,17 @@ class TextServer {
             case "2":
               String recipient = inFromClient.readLine();
               String message = inFromClient.readLine();
-              //Add hashmap here..? Above too?
+              storeMessage(recipient, message);
               outToClient.writeBytes("Message sent successfully\n");
               break;
+            case "3":
+               username = inFromClient.readLine();
+               String userMessages = getUserMessages(username);
+               outToClient.writeBytes(userMessages + '\n');
+               break;
+            case "4":    
+               connectionSocket.close();
+                 break;
             }
             if (option.equals("3")) {
                break;
@@ -46,5 +56,22 @@ class TextServer {
    }
    private static boolean isValidUser(String username, String password) {
         return (username.equals("Alice") && password.equals("1234")) || (username.equals("Bob") && password.equals("5678"));
-    }
+   }
+
+   private static void storeMessage(String recipient, String message) {
+      // Store the message for the recipient
+      List<String> messages = messageStore.getOrDefault(recipient, new ArrayList<>());
+      messages.add(message);
+      messageStore.put(recipient, messages);
+      System.out.println("Message stored for " + recipient + ": " + message);
+   }
+
+   private static String getUserMessages(String username) {
+      List<String> messages = messageStore.getOrDefault(username, new ArrayList<>());
+      StringBuilder sb = new StringBuilder();
+      for (String message : messages) {
+          sb.append(message).append("\n");
+      }
+      return sb.toString();
+   }
 }

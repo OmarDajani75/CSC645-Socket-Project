@@ -1,8 +1,8 @@
 import java.io.*; 
 import java.net.*;
 
-class TextClient {
-	public void main (String argv[]) throws Exception {
+public class TextClient {
+	public static void main (String argv[]) throws Exception {
 	   String sentence;
      String modifiedSentence;
      Socket clientSocket = new Socket("127.0.0.1", 6789);
@@ -25,9 +25,9 @@ class TextClient {
           String username, password;
           boolean isAuthenticated = false;
           do {
-            System.out.println("Please Enter Your Username: " + '\n');
+            System.out.println("Please Enter Your Username: ");
             username = inFromUser.readLine();
-            System.out.println("Please Enter Your Password: " + '\n');
+            System.out.println("Please Enter Your Password: ");
             password = inFromUser.readLine();
             outToServer.writeBytes(username);
             outToServer.writeBytes(password);
@@ -56,10 +56,13 @@ class TextClient {
           System.out.println("Server response: " + confirmation);
           break;
 		    case "3":
-		      sentence = inFromUser.readLine(); 
-		      outToServer.writeBytes(sentence + '\n'); 
-		      modifiedSentence = inFromServer.readLine(); 
-		      System.out.println("FROM SERVER: " + modifiedSentence);
+          System.out.println("Please Enter Your Username: ");
+          username = inFromUser.readLine();
+		      // Send username to the server
+          outToServer.writeBytes(username);
+          // Receive and display messages from the server
+           String userMessages = inFromServer.readLine();
+          System.out.println("Your messages:\n" + userMessages);
 		      break;
 		    case "4":    
           clientSocket.close();
