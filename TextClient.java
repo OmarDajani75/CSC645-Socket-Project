@@ -22,6 +22,7 @@ public class TextClient {
 
       switch (input) { 
         case "0":
+          //Logging into the program and starting the process with TextServer
           String username, password;
           boolean isAuthenticated = false;
           do {
@@ -40,10 +41,12 @@ public class TextClient {
           } while (!isAuthenticated);
           break;
         case "1":
+          //Getting the list of users from TextServer
           String userList = inFromServer.readLine();
           System.out.println("User list " + userList);
           break;
         case "2":
+          //Sending a message
           System.out.print("Enter recipient: ");
           String recipient = inFromUser.readLine();
           System.out.print("Enter message: ");
@@ -56,15 +59,15 @@ public class TextClient {
           System.out.println("Server response: " + confirmation);
           break;
 		    case "3":
+          //Checking messages
           System.out.println("Please Enter Your Username: ");
           username = inFromUser.readLine();
-		      // Send username to the server
           outToServer.writeBytes(username);
-          // Receive and display messages from the server
-           String userMessages = inFromServer.readLine();
+          String userMessages = inFromServer.readLine();
           System.out.println("Your messages:\n" + userMessages);
 		      break;
 		    case "4":    
+          //Exiting program
           clientSocket.close();
           break;
       }
@@ -73,7 +76,4 @@ public class TextClient {
         }
     }
 	}
-  private static boolean isValidUser(String username, String password) {
-    return (username.equals("Alice") && password.equals("1234")) || (username.equals("Bob") && password.equals("5678"));
-  }
 }
